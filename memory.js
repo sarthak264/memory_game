@@ -47,14 +47,44 @@ const cardGenerator = () => {
     face.classList = "face";
     back.classList = "back";
 
-    // setting src of images
+    // setting attributes of elements
     face.src = item.imgSrc;
+    card.setAttribute("name", item.name);
 
     // appending elements
     mainSection.appendChild(card);
     card.appendChild(face);
     card.appendChild(back);
+
+    card.addEventListener("click", (e) => {
+      card.classList.toggle("toggle");
+      checkCards(e);
+    });
   });
+};
+
+const checkCards = (e) => {
+  const clickedCard = e.target;
+  clickedCard.classList.add("flipped");
+  const flippedCards = document.querySelectorAll(".flipped");
+  if (flippedCards.length == 2) {
+    if (
+      flippedCards[0].getAttribute("name") ===
+      flippedCards[1].getAttribute("name")
+    ) {
+      flippedCards.forEach((card) => {
+        card.classList.remove("flipped");
+        card.style.pointerEvents = "none";
+      });
+    } else {
+      flippedCards.forEach((card) => {
+        card.classList.remove("flipped");
+        setTimeout(() => {
+          card.classList.remove("toggle");
+        }, 700);
+      });
+    }
+  }
 };
 
 cardGenerator();
