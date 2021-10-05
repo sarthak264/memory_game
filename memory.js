@@ -1,9 +1,9 @@
 // Grabbing DOM elements
 const mainSection = document.querySelector("main");
-const playerLivesCount = document.getElementById("playerLivesCount");
+const playerMovesCount = document.getElementById("playerMovesCount");
 
 // Variables
-let playerLives = 6;
+let playerMoves = 0;
 
 // List of objects
 const imgList = [
@@ -26,7 +26,7 @@ const imgList = [
 ];
 
 // setting initial value of player lives
-playerLivesCount.textContent = playerLives;
+playerMovesCount.textContent = playerMoves;
 
 // shuffles the image's data array
 const randomize = () => imgList.sort(() => Math.random() - 0.5);
@@ -76,6 +76,8 @@ const checkCards = (e) => {
         card.classList.remove("flipped");
         card.style.pointerEvents = "none";
       });
+      playerMoves++;
+      playerMovesCount.textContent = playerMoves;
     } else {
       flippedCards.forEach((card) => {
         card.classList.remove("flipped");
@@ -83,6 +85,10 @@ const checkCards = (e) => {
           card.classList.remove("toggle");
         }, 700);
       });
+      setTimeout(() => {
+        playerMoves++;
+        playerMovesCount.textContent = playerMoves;
+      }, 700);
     }
   }
 };
