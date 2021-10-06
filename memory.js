@@ -1,6 +1,7 @@
 // Grabbing DOM elements
 const mainSection = document.querySelector("main");
 const playerMovesCount = document.getElementById("playerMovesCount");
+let pairs = 0;
 
 // Variables
 let playerMoves = 0;
@@ -12,7 +13,7 @@ const imgList = [
   { imgSrc: "./images/fkatwigs.jpeg", id: 3, name: "fka twigs" },
   { imgSrc: "./images/fleetwood.jpeg", id: 4, name: "fleetwood" },
   { imgSrc: "./images/joy-division.jpeg", id: 5, name: "joy division" },
-  { imgSrc: "./images/ledzep.jpeg", id: 6, name: "lep zeppelin" },
+  { imgSrc: "./images/ledzep.jpeg", id: 6, name: "led zeppelin" },
   { imgSrc: "./images/metallica.jpeg", id: 7, name: "metallica" },
   { imgSrc: "./images/pinkfloyd.jpeg", id: 8, name: "pink floyd" },
   { imgSrc: "./images/beatles.jpeg", id: 9, name: "beatles" },
@@ -57,7 +58,7 @@ const cardGenerator = () => {
     card.appendChild(back);
 
     card.addEventListener("click", (e) => {
-      card.classList.toggle("toggle");
+      card.classList.add("toggle");
       checkCards(e);
     });
   });
@@ -76,6 +77,7 @@ const checkCards = (e) => {
         card.classList.remove("flipped");
         card.style.pointerEvents = "none";
       });
+      pairs++;
       playerMoves++;
       playerMovesCount.textContent = playerMoves;
     } else {
@@ -91,6 +93,11 @@ const checkCards = (e) => {
       }, 700);
     }
   }
+  if (pairs === 8) {
+    setTimeout(() => {
+      restartGame();
+    }, 1000);
+  }
 };
 
 const restartGame = () => {
@@ -100,6 +107,7 @@ const restartGame = () => {
 
   imgData = randomize();
   playerMoves = 0;
+  pairs = 0;
   const cards = document.querySelectorAll(".card");
   const faces = document.querySelectorAll(".face");
 
