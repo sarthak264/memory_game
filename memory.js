@@ -93,4 +93,28 @@ const checkCards = (e) => {
   }
 };
 
+const restartGame = () => {
+  // first set the player moves to 0
+  // second remove the toggle and flipped class from all elements
+  // third bring back the pointer events on matched cards
+
+  imgData = randomize();
+  playerMoves = 0;
+  const cards = document.querySelectorAll(".card");
+  const faces = document.querySelectorAll(".face");
+
+  playerMovesCount.textContent = playerMoves;
+
+  imgData.forEach((img, i) => {
+    faces[i].src = img.imgSrc;
+    cards[i].setAttribute("name", img.name);
+  });
+
+  cards.forEach((card) => {
+    card.classList.remove("toggle");
+    card.classList.remove("flipped");
+    card.style.pointerEvents = "all";
+  });
+};
+
 cardGenerator();
