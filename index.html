@@ -11,9 +11,44 @@
     <!-- CSS file -->
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <h1>Moves: <span id="playerMovesCount"></span></h1>
-    <main></main>
+    <section class="selection_page">
+      <h1>Memory Game</h1>
+      <div class="radio_container">
+        <form action="" id="selection_form">
+          <div class="easy_wrapper">
+            <input type="radio" name="radio_input" id="easy" value="easy" />
+            <label for="easy">Easy</label>
+          </div>
+          <div class="medium_wrapper">
+            <input type="radio" name="radio_input" id="medium" value="medium" />
+            <label for="medium">Medium</label>
+          </div>
+          <div class="hard_wrapper">
+            <input type="radio" name="radio_input" id="hard" value="hard" />
+            <label for="hard">Hard</label>
+          </div>
+          <div class="extreme_wrapper">
+            <input
+              type="radio"
+              name="radio_input"
+              id="extreme"
+              value="extreme"
+            />
+            <label for="extreme">Extreme</label>
+          </div>
+        </form>
+      </div>
+    </section>
+    <section class="playing_page">
+      <h1>Moves: <span id="playerMovesCount"></span></h1>
+      <main></main>
+    </section>
+    <section class="result_page">
+      <button id="play_again">play again</button>
+      <button id="change_btn">Change difficulty</button>
+    </section>
     <!-- Script -->
     <script src="memory.js"></script>
   </body>

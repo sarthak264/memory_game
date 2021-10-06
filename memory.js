@@ -1,30 +1,132 @@
 // Grabbing DOM elements
 const mainSection = document.querySelector("main");
 const playerMovesCount = document.getElementById("playerMovesCount");
+const radios = document.querySelectorAll('input[type="radio"]');
+const selectionPage = document.querySelector(".selection_page");
+const form = document.getElementById("selection_form");
+const playingPage = document.querySelector(".playing_page");
+const resultPage = document.querySelector(".result_page");
+const playAgainBtn = document.getElementById("play_again");
+const changeDifficultyBtn = document.getElementById("change_btn");
 let pairs = 0;
 
 // Variables
 let playerMoves = 0;
 
 // List of objects
-const imgList = [
-  { imgSrc: "./images/beatles.jpeg", id: 1, name: "beatles" },
-  { imgSrc: "./images/blink182.jpeg", id: 2, name: "blink 182" },
-  { imgSrc: "./images/fkatwigs.jpeg", id: 3, name: "fka twigs" },
-  { imgSrc: "./images/fleetwood.jpeg", id: 4, name: "fleetwood" },
-  { imgSrc: "./images/joy-division.jpeg", id: 5, name: "joy division" },
-  { imgSrc: "./images/ledzep.jpeg", id: 6, name: "led zeppelin" },
-  { imgSrc: "./images/metallica.jpeg", id: 7, name: "metallica" },
-  { imgSrc: "./images/pinkfloyd.jpeg", id: 8, name: "pink floyd" },
-  { imgSrc: "./images/beatles.jpeg", id: 9, name: "beatles" },
-  { imgSrc: "./images/blink182.jpeg", id: 10, name: "blink 182" },
-  { imgSrc: "./images/fkatwigs.jpeg", id: 11, name: "fka twigs" },
-  { imgSrc: "./images/fleetwood.jpeg", id: 12, name: "fleetwood" },
-  { imgSrc: "./images/joy-division.jpeg", id: 13, name: "joy division" },
-  { imgSrc: "./images/ledzep.jpeg", id: 14, name: "led zeppelin" },
-  { imgSrc: "./images/metallica.jpeg", id: 15, name: "metallica" },
-  { imgSrc: "./images/pinkfloyd.jpeg", id: 16, name: "pink floyd" },
-];
+let imgList = [];
+
+radios.forEach((radio) => {
+  radio.addEventListener("click", () => {
+    const name = radio.getAttribute("id");
+    chooseMode(name);
+    selectionPage.style.display = "none";
+    playingPage.style.display = "grid";
+  });
+});
+
+const chooseMode = (mode) => {
+  if (mode === "extreme") {
+    mainSection.classList.add("extreme");
+    console.log("extreme selected");
+    imgList = [
+      { imgSrc: "./images/brand1.png", id: 1, name: "react" },
+      { imgSrc: "./images/brand2.png", id: 2, name: "google" },
+      { imgSrc: "./images/brand3.png", id: 3, name: "snapchat" },
+      { imgSrc: "./images/brand4.png", id: 4, name: "sketch" },
+      { imgSrc: "./images/brand5.png", id: 5, name: "figma" },
+      { imgSrc: "./images/brand6.png", id: 6, name: "in" },
+      { imgSrc: "./images/brand7.png", id: 7, name: "adobe xd" },
+      { imgSrc: "./images/brand8.png", id: 8, name: "spotify" },
+      { imgSrc: "./images/brand9.png", id: 9, name: "flying ship" },
+      { imgSrc: "./images/brand10.png", id: 10, name: "office" },
+      { imgSrc: "./images/brand11.png", id: 11, name: "salesforce" },
+      { imgSrc: "./images/brand23.png", id: 12, name: "excel" },
+      { imgSrc: "./images/brand13.png", id: 13, name: "dribble" },
+      { imgSrc: "./images/brand14.png", id: 14, name: "word" },
+      { imgSrc: "./images/brand15.png", id: 15, name: "slack" },
+      { imgSrc: "./images/brand16.png", id: 16, name: "telegram" },
+      { imgSrc: "./images/brand17.png", id: 17, name: "line" },
+      { imgSrc: "./images/brand28.png", id: 18, name: "evernote" },
+      { imgSrc: "./images/brand19.png", id: 19, name: "drive" },
+      { imgSrc: "./images/brand21.png", id: 20, name: "analytics" },
+      { imgSrc: "./images/brand1.png", id: 21, name: "react" },
+      { imgSrc: "./images/brand2.png", id: 22, name: "google" },
+      { imgSrc: "./images/brand3.png", id: 23, name: "snapchat" },
+      { imgSrc: "./images/brand4.png", id: 24, name: "sketch" },
+      { imgSrc: "./images/brand5.png", id: 25, name: "figma" },
+      { imgSrc: "./images/brand6.png", id: 26, name: "in" },
+      { imgSrc: "./images/brand7.png", id: 27, name: "adobe xd" },
+      { imgSrc: "./images/brand8.png", id: 28, name: "spotify" },
+      { imgSrc: "./images/brand9.png", id: 29, name: "flying ship" },
+      { imgSrc: "./images/brand10.png", id: 30, name: "office" },
+      { imgSrc: "./images/brand11.png", id: 31, name: "salesforce" },
+      { imgSrc: "./images/brand23.png", id: 32, name: "excel" },
+      { imgSrc: "./images/brand13.png", id: 33, name: "dribble" },
+      { imgSrc: "./images/brand14.png", id: 34, name: "word" },
+      { imgSrc: "./images/brand15.png", id: 35, name: "slack" },
+      { imgSrc: "./images/brand16.png", id: 36, name: "telegram" },
+      { imgSrc: "./images/brand17.png", id: 37, name: "line" },
+      { imgSrc: "./images/brand28.png", id: 38, name: "evernote" },
+      { imgSrc: "./images/brand19.png", id: 39, name: "drive" },
+      { imgSrc: "./images/brand21.png", id: 40, name: "analytics" },
+    ];
+  } else if (mode === "hard") {
+    mainSection.classList.add("hard");
+    console.log("hard selected");
+    imgList = [
+      { imgSrc: "./images/brand4.png", id: 1, name: "sketch" },
+      { imgSrc: "./images/brand7.png", id: 2, name: "adobe xd" },
+      { imgSrc: "./images/brand8.png", id: 3, name: "spotify" },
+      { imgSrc: "./images/brand9.png", id: 4, name: "flying ship" },
+      { imgSrc: "./images/brand13.png", id: 5, name: "dribble" },
+      { imgSrc: "./images/brand14.png", id: 6, name: "word" },
+      { imgSrc: "./images/brand15.png", id: 7, name: "slack" },
+      { imgSrc: "./images/brand16.png", id: 8, name: "telegram" },
+      { imgSrc: "./images/brand28.png", id: 9, name: "evernote" },
+      { imgSrc: "./images/brand21.png", id: 10, name: "analytics" },
+      { imgSrc: "./images/brand4.png", id: 11, name: "sketch" },
+      { imgSrc: "./images/brand7.png", id: 12, name: "adobe xd" },
+      { imgSrc: "./images/brand8.png", id: 13, name: "spotify" },
+      { imgSrc: "./images/brand9.png", id: 14, name: "flying ship" },
+      { imgSrc: "./images/brand13.png", id: 15, name: "dribble" },
+      { imgSrc: "./images/brand14.png", id: 16, name: "word" },
+      { imgSrc: "./images/brand15.png", id: 17, name: "slack" },
+      { imgSrc: "./images/brand16.png", id: 18, name: "telegram" },
+      { imgSrc: "./images/brand28.png", id: 19, name: "evernote" },
+      { imgSrc: "./images/brand21.png", id: 20, name: "analytics" },
+    ];
+  } else if (mode === "medium") {
+    mainSection.classList.add("medium");
+    console.log("medium selected");
+    imgList = [
+      { imgSrc: "./images/brand4.png", id: 1, name: "sketch" },
+      { imgSrc: "./images/brand7.png", id: 2, name: "adobe xd" },
+      { imgSrc: "./images/brand9.png", id: 3, name: "flying ship" },
+      { imgSrc: "./images/brand13.png", id: 4, name: "dribble" },
+      { imgSrc: "./images/brand16.png", id: 5, name: "telegram" },
+      { imgSrc: "./images/brand28.png", id: 6, name: "evernote" },
+      { imgSrc: "./images/brand4.png", id: 7, name: "sketch" },
+      { imgSrc: "./images/brand7.png", id: 8, name: "adobe xd" },
+      { imgSrc: "./images/brand9.png", id: 9, name: "flying ship" },
+      { imgSrc: "./images/brand13.png", id: 10, name: "dribble" },
+      { imgSrc: "./images/brand16.png", id: 11, name: "telegram" },
+      { imgSrc: "./images/brand28.png", id: 12, name: "evernote" },
+    ];
+  } else if (mode === "easy") {
+    mainSection.classList.add("easy");
+    console.log("easy selected");
+    imgList = [
+      { imgSrc: "./images/brand4.png", id: 1, name: "sketch" },
+      { imgSrc: "./images/brand9.png", id: 2, name: "flying ship" },
+      { imgSrc: "./images/brand28.png", id: 3, name: "evernote" },
+      { imgSrc: "./images/brand4.png", id: 4, name: "sketch" },
+      { imgSrc: "./images/brand9.png", id: 5, name: "flying ship" },
+      { imgSrc: "./images/brand28.png", id: 6, name: "evernote" },
+    ];
+  }
+  cardGenerator();
+};
 
 // setting initial value of player lives
 playerMovesCount.textContent = playerMoves;
@@ -93,10 +195,23 @@ const checkCards = (e) => {
       }, 700);
     }
   }
-  if (pairs === 8) {
+  if (pairs === imgList.length / 2) {
     setTimeout(() => {
+      playingPage.style.display = "none";
+      resultPage.style.display = "grid";
+    }, 500);
+    playAgainBtn.addEventListener("click", () => {
       restartGame();
-    }, 1000);
+      resultPage.style.display = "none";
+      playingPage.style.display = "grid";
+    });
+    changeDifficultyBtn.addEventListener("click", () => {
+      resultPage.style.display = "none";
+      form.reset();
+      mainSection.innerHTML = "";
+      selectionPage.style.display = "grid";
+      restartGame();
+    });
   }
 };
 
@@ -124,5 +239,3 @@ const restartGame = () => {
     card.style.pointerEvents = "all";
   });
 };
-
-cardGenerator();
