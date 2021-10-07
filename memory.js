@@ -1,6 +1,9 @@
 // Grabbing DOM elements
 const mainSection = document.querySelector("main");
 const playerMovesCount = document.getElementById("playerMovesCount");
+const time = document.querySelector(".time");
+const minutes = time.querySelector(".minutes");
+const seconds = time.querySelector(".seconds");
 const radios = document.querySelectorAll('input[type="radio"]');
 const selectionPage = document.querySelector(".selection_page");
 const form = document.getElementById("selection_form");
@@ -8,12 +11,14 @@ const playingPage = document.querySelector(".playing_page");
 const resultPage = document.querySelector(".result_page");
 const playAgainBtn = document.getElementById("play_again");
 const changeDifficultyBtn = document.getElementById("change_btn");
+let minute = 00;
+let second = 00;
+// let minuteInterval;
+let secondInterval;
 let pairs = 0;
 
 // Variables
 let playerMoves = 0;
-
-// List of objects
 let imgList = [];
 
 radios.forEach((radio) => {
@@ -28,7 +33,6 @@ radios.forEach((radio) => {
 const chooseMode = (mode) => {
   if (mode === "extreme") {
     mainSection.classList.add("extreme");
-    console.log("extreme selected");
     imgList = [
       { imgSrc: "./images/brand1.png", id: 1, name: "react" },
       { imgSrc: "./images/brand2.png", id: 2, name: "google" },
@@ -73,7 +77,6 @@ const chooseMode = (mode) => {
     ];
   } else if (mode === "hard") {
     mainSection.classList.add("hard");
-    console.log("hard selected");
     imgList = [
       { imgSrc: "./images/brand4.png", id: 1, name: "sketch" },
       { imgSrc: "./images/brand7.png", id: 2, name: "adobe xd" },
@@ -98,7 +101,6 @@ const chooseMode = (mode) => {
     ];
   } else if (mode === "medium") {
     mainSection.classList.add("medium");
-    console.log("medium selected");
     imgList = [
       { imgSrc: "./images/brand4.png", id: 1, name: "sketch" },
       { imgSrc: "./images/brand7.png", id: 2, name: "adobe xd" },
@@ -115,7 +117,6 @@ const chooseMode = (mode) => {
     ];
   } else if (mode === "easy") {
     mainSection.classList.add("easy");
-    console.log("easy selected");
     imgList = [
       { imgSrc: "./images/brand4.png", id: 1, name: "sketch" },
       { imgSrc: "./images/brand9.png", id: 2, name: "flying ship" },
@@ -130,6 +131,31 @@ const chooseMode = (mode) => {
 
 // setting initial value of player lives
 playerMovesCount.textContent = playerMoves;
+
+// updates time
+const updateTime = () => {
+  console.log("ran update time");
+  minute = 0;
+  second = 0;
+  secondInterval = setInterval(() => {
+    if (second === 59) {
+      second = 0;
+      minute++;
+    } else {
+      second++;
+    }
+    if (second.toString().split("").length === 1) {
+      seconds.innerHTML = `0${second}`;
+    } else {
+      seconds.innerHTML = second;
+    }
+    if (minute.toString().split("").length === 1) {
+      minutes.innerHTML = `0${minute}`;
+    } else {
+      minutes.innerHTML = minute;
+    }
+  }, 1000);
+};
 
 // shuffles the image's data array
 const randomize = () => imgList.sort(() => Math.random() - 0.5);
@@ -164,6 +190,7 @@ const cardGenerator = () => {
       checkCards(e);
     });
   });
+  updateTime();
 };
 
 const checkCards = (e) => {
@@ -196,11 +223,17 @@ const checkCards = (e) => {
     }
   }
   if (pairs === imgList.length / 2) {
+    // clearInterval(minuteInterval);
     setTimeout(() => {
       playingPage.style.display = "none";
       resultPage.style.display = "grid";
     }, 500);
     playAgainBtn.addEventListener("click", () => {
+      clearInterval(secondInterval);
+      console.log(time.textContent);
+      seconds.innerHTML = "00";
+      minutes.innerHTML = "00";
+      console.log("time set as 0");
       restartGame();
       resultPage.style.display = "none";
       playingPage.style.display = "grid";
@@ -210,7 +243,7 @@ const checkCards = (e) => {
       form.reset();
       mainSection.innerHTML = "";
       selectionPage.style.display = "grid";
-      restartGame();
+      resetVariables();
     });
   }
 };
@@ -226,8 +259,8 @@ const restartGame = () => {
   const cards = document.querySelectorAll(".card");
   const faces = document.querySelectorAll(".face");
 
+  updateTime();
   playerMovesCount.textContent = playerMoves;
-
   imgData.forEach((img, i) => {
     faces[i].src = img.imgSrc;
     cards[i].setAttribute("name", img.name);
@@ -238,4 +271,13 @@ const restartGame = () => {
     card.classList.remove("flipped");
     card.style.pointerEvents = "all";
   });
+};
+const resetVariables = () => {
+  imgData = randomize();
+  playerMoves = 0;
+  pairs = 0;
+  minute = 0;
+  second = 0;
+
+  // updateTime();
 };
