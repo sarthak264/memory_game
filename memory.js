@@ -4,20 +4,19 @@ const playerMovesCount = document.getElementById("playerMovesCount");
 const time = document.querySelector(".time");
 const minutes = time.querySelector(".minutes");
 const seconds = time.querySelector(".seconds");
-const radios = document.querySelectorAll('input[type="radio"]');
 const selectionPage = document.querySelector(".selection_page");
 const form = document.getElementById("selection_form");
+const radios = document.querySelectorAll('input[type="radio"]');
 const playingPage = document.querySelector(".playing_page");
 const resultPage = document.querySelector(".result_page");
 const playAgainBtn = document.getElementById("play_again");
 const changeDifficultyBtn = document.getElementById("change_btn");
-let minute = 00;
-let second = 00;
-// let minuteInterval;
-let secondInterval;
-let pairs = 0;
 
 // Variables
+let minute = 00;
+let second = 00;
+let secondInterval;
+let pairs = 0;
 let playerMoves = 0;
 let imgList = [];
 
@@ -134,6 +133,7 @@ playerMovesCount.textContent = playerMoves;
 
 // updates time
 const updateTime = () => {
+  secondInterval = "";
   console.log("ran update time");
   minute = 0;
   second = 0;
@@ -223,7 +223,6 @@ const checkCards = (e) => {
     }
   }
   if (pairs === imgList.length / 2) {
-    // clearInterval(minuteInterval);
     setTimeout(() => {
       playingPage.style.display = "none";
       resultPage.style.display = "grid";
@@ -233,12 +232,16 @@ const checkCards = (e) => {
       console.log(time.textContent);
       seconds.innerHTML = "00";
       minutes.innerHTML = "00";
-      console.log("time set as 0");
-      restartGame();
+      mainSection.innerHTML = "";
+      resetVariables();
+      cardGenerator();
       resultPage.style.display = "none";
       playingPage.style.display = "grid";
     });
     changeDifficultyBtn.addEventListener("click", () => {
+      clearInterval(secondInterval);
+      seconds.innerHTML = "00";
+      minutes.innerHTML = "00";
       resultPage.style.display = "none";
       form.reset();
       mainSection.innerHTML = "";
@@ -279,5 +282,5 @@ const resetVariables = () => {
   minute = 0;
   second = 0;
 
-  // updateTime();
+  playerMovesCount.textContent = playerMoves;
 };
