@@ -6,12 +6,18 @@
   box-sizing: border-box;
 }
 body {
+  position: relative;
   font-family: sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.home_btn {
+  position: absolute;
+  top: 5rem;
+  right: 5rem;
 }
 .playing_page {
   display: none;

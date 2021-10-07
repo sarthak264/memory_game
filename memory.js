@@ -1,4 +1,5 @@
 // Grabbing DOM elements
+const homeBtn = document.querySelector(".home_btn");
 const mainSection = document.querySelector("main");
 const playerMovesCount = document.getElementById("playerMovesCount");
 const time = document.querySelector(".time");
@@ -19,6 +20,17 @@ let secondInterval;
 let pairs = 0;
 let playerMoves = 0;
 let imgList = [];
+
+homeBtn.addEventListener("click", () => {
+  clearInterval(secondInterval);
+  seconds.innerHTML = "00";
+  minutes.innerHTML = "00";
+  playingPage.style.display = "none";
+  form.reset();
+  mainSection.innerHTML = "";
+  selectionPage.style.display = "grid";
+  resetVariables();
+});
 
 radios.forEach((radio) => {
   radio.addEventListener("click", () => {
